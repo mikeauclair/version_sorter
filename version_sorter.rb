@@ -23,10 +23,7 @@ private
       if( a == b )                 then next
       elsif (a == '-' || a == '.')             then return -1
       elsif (b == '-' || b == '.')             then return 1
-      elsif (a =~ /^\d+$/ && b =~ /^\d+$/) then
-        if( a =~ /^0/ or b =~ /^0/ ) then
-          return a.upcase <=> b.upcase
-        end
+      elsif (a =~ /^[1-9]\d*$/ && b =~ /^[1-9]\d*$/) then
         return a.to_i <=> b.to_i
       else
         return a.upcase <=> b.upcase
@@ -60,7 +57,7 @@ if $0 == __FILE__
     end
     
     def test_tags_sort
-      require 'profile'
+      # require 'profile'
       assert_equal tags_sorted, sort(tags)
     end
   end
