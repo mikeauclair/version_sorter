@@ -16,18 +16,16 @@ private
     ax = version_a.scan(vre)
     bx = version_b.scan(vre)
 
-    while ax.length > 0 && bx.length > 0
+    until ax.empty? || bx.empty?
       a = ax.shift
       b = bx.shift
 
       if( a == b )                 then next
-      elsif (a == '-')             then return -1
-      elsif (b == '-')             then return 1
-      elsif (a == '.' )            then return -1
-      elsif (b == '.' )            then return 1
+      elsif (a == '-' || a == '.')             then return -1
+      elsif (b == '-' || b == '.')             then return 1
       elsif (a =~ /^\d+$/ && b =~ /^\d+$/) then
         if( a =~ /^0/ or b =~ /^0/ ) then
-          return a.to_s.upcase <=> b.to_s.upcase
+          return a.upcase <=> b.upcase
         end
         return a.to_i <=> b.to_i
       else
@@ -43,10 +41,10 @@ puts
 
 if $0 == __FILE__
   require 'test/unit'
-
+  require 'tags'
   class VersionSorterTest < Test::Unit::TestCase
     include VersionSorter
-
+    include Tags
     def test_sorts_verisons_correctly
       versions = %w(1.0.9 1.0.10 2.0 3.1.4.2 1.0.9a)
       sorted_versions = %w( 1.0.9 1.0.9a 1.0.10 2.0 3.1.4.2 )
@@ -59,6 +57,11 @@ if $0 == __FILE__
       sorted_versions = %w( 3.1.4.2 2.0 1.0.10 1.0.9a 1.0.9 )
 
       assert_equal sorted_versions, rsort(versions)
+    end
+    
+    def test_tags_sort
+      require 'profile'
+      assert_equal tags_sorted, sort(tags)
     end
   end
 end
