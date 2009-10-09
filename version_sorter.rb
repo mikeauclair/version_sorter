@@ -38,10 +38,10 @@ puts
 
 if $0 == __FILE__
   require 'test/unit'
-  require 'tags'
+  
   class VersionSorterTest < Test::Unit::TestCase
     include VersionSorter
-    include Tags
+    
     def test_sorts_verisons_correctly
       versions = %w(1.0.9 1.0.10 2.0 3.1.4.2 1.0.9a)
       sorted_versions = %w( 1.0.9 1.0.9a 1.0.10 2.0 3.1.4.2 )
@@ -56,10 +56,7 @@ if $0 == __FILE__
       assert_equal sorted_versions, rsort(versions)
     end
     
-    def test_tags_sort
-      # require 'profile'
-      assert_equal tags_sorted, sort(tags)
-    end
+
   end
 
   require 'benchmark'
