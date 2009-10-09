@@ -21,10 +21,8 @@ private
       b = bx.shift
 
       if( a == b )                 then next
-      elsif (a == '-' && b == '-') then next
       elsif (a == '-')             then return -1
       elsif (b == '-')             then return 1
-      elsif (a == '.' && b == '.') then next
       elsif (a == '.' )            then return -1
       elsif (b == '.' )            then return 1
       elsif (a =~ /^\d+$/ && b =~ /^\d+$/) then
